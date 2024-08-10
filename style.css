@@ -1392,7 +1392,7 @@ footer {
 /*Resize the wrap to see the search bar change!*/
 
 .wrap{
-  width: 70%;
+  width: 85%;
   position: relative;
  padding-top: -100px;
   transform: translate(20%, 5%); /* changes for the search bar padding */
@@ -1464,7 +1464,7 @@ footer {
   display: grid;
   position: absolute;
   grid-template-columns: 1fr 1fr;
-  top: 130%;
+  top: 76%;
   left: 45%;
   transform: translate(-49%, -50%);
 }
