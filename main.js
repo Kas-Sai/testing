@@ -73,4 +73,230 @@ document.addEventListener('DOMContentLoaded', () => {
     typeEffect();
 });
 
+
+/*-----------------service provider About section----------*/
+document.getElementById("aboutBtn").addEventListener("click", function() {
+    document.getElementById("aboutSection").classList.remove("hidden");
+    document.getElementById("settingSection").classList.add("hidden");
+    this.classList.add("active");
+    document.getElementById("settingBtn").classList.remove("active");
+  });
   
+  document.getElementById("settingBtn").addEventListener("click", function() {
+    document.getElementById("settingSection").classList.remove("hidden");
+    document.getElementById("aboutSection").classList.add("hidden");
+    this.classList.add("active");
+    document.getElementById("aboutBtn").classList.remove("active");
+  });
+
+  
+  /*----------- Post area content of javascrit ------*/
+  
+document.getElementById("postsBtn").addEventListener("click", function() {
+    document.getElementById("postsSection").classList.remove("hidden1");
+    document.getElementById("reviewsSection").classList.add("hidden1");
+    document.getElementById("appointmentSection").classList.add("hidden1");
+  
+    this.classList.add("active");
+    document.getElementById("reviewsBtn").classList.remove("active");
+    document.getElementById("appointmentBtn").classList.remove("active");
+  });
+  
+  document.getElementById("reviewsBtn").addEventListener("click", function() {
+    document.getElementById("reviewsSection").classList.remove("hidden1");
+    document.getElementById("postsSection").classList.add("hidden1");
+    document.getElementById("appointmentSection").classList.add("hidden1");
+  
+    this.classList.add("active");
+    document.getElementById("postsBtn").classList.remove("active");
+    document.getElementById("appointmentBtn").classList.remove("active");
+  });
+  
+  document.getElementById("appointmentBtn").addEventListener("click", function() {
+    document.getElementById("appointmentSection").classList.remove("hidden1");
+    document.getElementById("postsSection").classList.add("hidden1");
+    document.getElementById("reviewsSection").classList.add("hidden1");
+  
+    this.classList.add("active");
+    document.getElementById("postsBtn").classList.remove("active");
+    document.getElementById("reviewsBtn").classList.remove("active");
+  });
+  
+  
+  document.getElementById("postBtn").addEventListener("click", function() {
+    const postInput = document.getElementById("postInput").value;
+    if (postInput.trim() !== "") {
+      const postContent = document.getElementById("postContent");
+      const postItem = document.createElement("div");
+      postItem.classList.add("content-item");
+  
+      postItem.innerHTML = `
+        <div class="avatar"></div>
+        <div class="content-text">
+          <p class="username">User@123</p>
+          <p>${postInput}</p>
+        </div>
+      `;
+  
+      postContent.appendChild(postItem);
+      document.getElementById("postInput").value = "";
+    }
+  });
+  
+  
+  document.getElementById("reviewBtn").addEventListener("click", function() {
+    const reviewInput = document.getElementById("reviewInput").value;
+    if (reviewInput.trim() !== "") {
+      const reviewContent = document.getElementById("reviewContent");
+      const reviewItem = document.createElement("div");
+      reviewItem.classList.add("review-item");
+  
+      reviewItem.innerHTML = `
+        <div class="avatar" style="background-color: green;"></div>
+        <div class="content-text">
+          <p class="username">User@123</p>
+          <p>${reviewInput}</p>
+        </div>
+      `;
+  
+      reviewContent.appendChild(reviewItem);
+      document.getElementById("reviewInput").value = "";
+    }
+  });
+  
+
+  document.getElementById("imageBtn").addEventListener("click", function() {
+    document.getElementById("imageUpload").click();
+  });
+  
+  document.getElementById("imageUpload").addEventListener("change", function(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const postContent = document.getElementById("postContent");
+        const postItem = document.createElement("div");
+        postItem.classList.add("content-item");
+  
+        postItem.innerHTML = `
+          <div class="avatar"></div>
+          <div class="content-text">
+            <p class="username">User@123</p>
+            <img src="${e.target.result}" alt="Uploaded Image" style="max-width: 100%; height: auto;">
+          </div>
+        `;
+  
+        postContent.appendChild(postItem);
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+  
+  
+  document.getElementById("emojiBtn").addEventListener("click", function() {
+    const emoji = prompt("Choose an emoji:");
+    if (emoji) {
+      const postContent = document.getElementById("postContent");
+      const postItem = document.createElement("div");
+      postItem.classList.add("content-item");
+  
+      postItem.innerHTML = `
+        <div class="avatar"></div>
+        <div class="content-text">
+          <p class="username">User@123</p>
+          <p>${emoji}</p>
+        </div>
+      `;
+  
+      postContent.appendChild(postItem);
+    }
+  });
+  
+  // Appointment booking form
+  document.getElementById("appointmentForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+  
+    const name = document.getElementById("name").value;
+    const date = document.getElementById("date").value;
+    const time = document.getElementById("time").value;
+  
+    const resultDiv = document.getElementById("appointmentResult");
+    resultDiv.innerHTML = `
+      <p><strong>Appointment Booked!</strong></p>
+      <p>Name: ${name}</p>
+      <p>Date: ${date}</p>
+      <p>Time: ${time}</p>
+    `;
+  
+    document.getElementById("appointmentForm").reset();
+  });
+  
+  
+
+  /*-------------Experties selection Script-----------*/
+  // Function to add skill from input to chosen tags
+  function addSkill() {
+    const skillInput = document.getElementById("skill");
+    const skillValue = skillInput.value.trim();
+    if (skillValue) {
+        displayTag(skillValue);
+        skillInput.value = ""; // Clear input after adding
+    }
+}
+
+// Function to display chosen tags in the left box
+function displayTag(tagName) {
+    const chosenTagsList = document.getElementById("chosen-tags-list");
+    const tagElement = document.createElement("div");
+    tagElement.className = "tag-item";
+    tagElement.innerText = tagName;
+    chosenTagsList.appendChild(tagElement);
+}
+
+// Function to select tag from available tags on the right
+function selectTag(tagName) {
+    displayTag(tagName);
+}
+
+/*-------------Sign Up page Changing script-----------*/
+document.addEventListener("DOMContentLoaded", function() {
+  // Initialize sections and buttons
+  const part1 = document.querySelector('.sign-up-part-1');
+  const part2 = document.querySelector('.sign-up-part-2');
+  const part3 = document.querySelector('.sign-up-part-3');
+  const nextButtonPart1 = document.querySelector('.sign-up-part-1 .btn');
+  const toggleSwitch = document.getElementById('toggle-switch');
+
+  // Initially show the first part and hide the others
+  part1.style.display = 'block';
+  part2.style.display = 'none';
+  part3.style.display = 'none';
+
+  // Handle the next button click in part 1
+  nextButtonPart1.addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent form submission
+      const userType = toggleSwitch.checked ? 'provider' : 'client';
+
+      // Hide part 1 and show part 2
+      part1.style.display = 'none';
+      part2.style.display = 'block';
+
+      // Change button text and behavior in part 2
+      const part2NextButton = document.createElement('button');
+      part2NextButton.classList.add('next-btn');
+      part2NextButton.textContent = userType === 'provider' ? 'Next' : 'Sign Up';
+      part2NextButton.type = 'button'; // Prevent form submission
+      part2.appendChild(part2NextButton);
+
+      // Handle the next button click in part 2
+      part2NextButton.addEventListener('click', function() {
+          part2.style.display = 'none';
+          if (userType === 'provider') {
+              part3.style.display = 'block';
+          } else {
+              // Here you can handle the sign-up process for clients
+              alert("Client sign-up completed!"); // Placeholder action
+          }
+      });
+  });
+});
