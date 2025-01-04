@@ -1,62 +1,65 @@
-document.addEventListener("DOMContentLoaded", function () {
-    // Front Page (signUpFrontPage.html)
-    const signUpForm = document.getElementById("signUpForm");
-    const nextBtnFrontPage = document.getElementById("nextBtn");
-    const userTypeSwitch = document.getElementById("toggle-switch");
+// signUp.js
+document.addEventListener("DOMContentLoaded", () => {
+    const toggleSwitch = document.getElementById("toggle-switch");
+    const nextButtons = document.querySelectorAll(".next");
+    const prevIcons = document.querySelectorAll(".prev");
 
-    let isClient = false;
+    let userType = "client"; // Default user type
 
-    // Update visibility when toggling between client/provider
-    userTypeSwitch.addEventListener("change", function () {
-        isClient = userTypeSwitch.checked;
+    // Listen to the toggle switch to determine user type
+    toggleSwitch.addEventListener("change", () => {
+        userType = toggleSwitch.checked ? "provider" : "client";
     });
 
-    // Handle Next button click on Front Page (signUpFrontPage.html)
-    nextBtnFrontPage.addEventListener("click", function (event) {
-        event.preventDefault(); // Prevent form submission
-
-        // Store the user type (client/provider) in sessionStorage
-        sessionStorage.setItem("userType", isClient ? "client" : "provider");
-
-        // Navigate to signUpSecondPage.html
-        window.location.href = "signUpSecondPage.html";
+    // Add event listeners to "Next" buttons
+    nextButtons.forEach((button, index) => {
+        button.addEventListener("click", (e) => {
+            e.preventDefault();
+            handleNextButtonClick(index);
+        });
     });
 
-    // Second Page (signUpSecondPage.html)
-    const part2 = document.querySelector(".sign-up-part-2");
-    const part3 = document.querySelector(".sign-up-part-3");
-    const nextBtnSecondPage = part2.querySelector(".next-btn"); // "Next" button in part-2
-    const prevPart3Btn = part3.querySelector(".prev-part3"); // "Previous" button in part-3
+    // Add event listeners to "Prev" icons
+    prevIcons.forEach((icon, index) => {
+        icon.addEventListener("click", (e) => {
+            e.preventDefault();
+            handlePrevButtonClick(index);
+        });
+    });
 
-    // Check if the user is a client or provider, using sessionStorage
-    const userType = sessionStorage.getItem("userType");
-
-    // Initial visibility setup
-    part2.style.display = "block"; // Show part-2 initially
-    part3.style.display = "none"; // Hide part-3 initially
-
-    if (userType === "client") {
-        // For client, hide part-3 and change button to "Sign Up"
-        part3.style.display = "none";
-        nextBtnSecondPage.textContent = "Sign Up"; // Change button text to "Sign Up"
+    function handleNextButtonClick(index) {
+        if (index === 0) {
+            // First page: Decide navigation based on user type
+            if (userType === "client") {
+                window.location.href = "signUpSecondPage.html";
+            } else if (userType === "provider") {
+                window.location.href = "signUpSecondPage.html";
+            }
+        } else if (index === 1 && userType === "provider") {
+            // Provider on second page
+            window.location.href = "signUpThirdPage.html";
+        }
     }
 
-    // Next button functionality for part-2
-    nextBtnSecondPage.addEventListener("click", () => {
-        if (userType === "client") {
-            // For client, show sign up confirmation
-            alert("Client signed up!");
-            window.location.href = "thankYouPage.html"; // Redirect to a Thank You page or appropriate page after sign-up
-        } else {
-            // If user is a provider, show part-3 and hide part-2
-            part2.style.display = "none"; // Hide part-2
-            part3.style.display = "block"; // Show part-3
+    function handlePrevButtonClick(index) {
+        if (index === 0) {
+            // Second page to First page
+            window.location.href = "signUpFirstPage.html";
+        } else if (index === 1) {
+            // Third page to Second page
+            window.location.href = "signUpSecondPage.html";
         }
-    });
+    }
 
-    // Previous button functionality for part-3
-    prevPart3Btn.addEventListener("click", () => {
-        part3.style.display = "none"; // Hide part-3
-        part2.style.display = "block"; // Show part-2
-    });
+    // Update button text dynamically on the second page
+    if (window.location.pathname.includes("signUpSecondPage.html")) {
+        const nextButton = document.querySelector(".next-btn");
+        if (userType === "client") {
+            nextButton.textContent = "Sign Up";
+            nextButton.addEventListener("click", (e) => {
+                e.preventDefault();
+                alert("Client registration successful!"); // Add your logic here
+            });
+        }
+    }
 });
