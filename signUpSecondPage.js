@@ -5,8 +5,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const part2 = document.querySelector(".sign-up-part-2");
     const part3 = document.querySelector(".sign-up-part-3");
     
-    // Check if the user is a client or provider, using sessionStorage or URL query params
-    const isClient = sessionStorage.getItem("userType") === "client"; // Example for client check, replace with your preferred logic.
+    // Check if the user is a client or provider, using sessionStorage
+    const isClient = sessionStorage.getItem("userType") === "client"; // Example for client check
 
     // Show only sign-up-part-2 if client
     if (isClient) {
