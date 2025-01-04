@@ -68,32 +68,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="./signUpChangerSlide.js"></script>
 <script src="./main.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const nextBtn = document.getElementById("nextBtn");
-    const userTypeSwitch = document.getElementById("toggle-switch");
-    const signUpForm = document.getElementById("signUpForm");
-
-    let isClient = false;
-
-    // Update visibility when toggling between client/provider
-    userTypeSwitch.addEventListener("change", function() {
-        isClient = userTypeSwitch.checked;
-    });
-
-    // Handle Next button click
-    nextBtn.addEventListener("click", function() {
-        // Prevent form submission
-        event.preventDefault();
-        
-        // Store the user type (client/provider) in sessionStorage
-        sessionStorage.setItem("userType", isClient ? "client" : "provider");
-
-        // Navigate to the next page
-        window.location.href = "signUpSecondPage.html";
-    });
-});
-</script>
+<script src="signUp.js"></script>
 
 </body>
 </html>
