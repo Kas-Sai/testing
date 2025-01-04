@@ -19,4 +19,28 @@ document.addEventListener("DOMContentLoaded", function () {
         part3.style.display = "none"; // Hide part-3
         part2.style.display = "block"; // Show part-2
     });
+
+    
+    // Handle Next button click on Front Page (signUpFrontPage.html)
+    nextBtnFrontPage.addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent form submission
+
+        // Store the user type (client/provider) in sessionStorage
+        sessionStorage.setItem("userType", isClient ? "client" : "provider");
+
+        // Navigate to signUpSecondPage.html
+        window.location.href = "signUpSecondPage.html";
+    });
+
+    // Handle Sign Up button for client
+    signUpBtnFrontPage.addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent form submission
+
+        alert("Client signed up!");
+        window.location.href = "thankYouPage.html"; // Redirect to a Thank You page or appropriate page after sign-up
+    });
+
+    // Initialize the form display based on the current state
+    updateFormDisplay();
+    
 });
