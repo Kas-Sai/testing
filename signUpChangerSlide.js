@@ -1,5 +1,3 @@
-//js code for switching sign-up slides
-
 document.addEventListener("DOMContentLoaded", function () {
     const part1 = document.querySelector(".sign-up-part-1");
     const part2 = document.querySelector(".sign-up-part-2");
@@ -30,13 +28,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Next button functionality
     nextBtns.forEach((btn) => {
-        btn.addEventListener("click", () => {
+        btn.addEventListener("click", (event) => {
+            event.preventDefault(); // Prevent form submission
+
             if (part1.style.display === "block") {
-                part1.style.display = "none";
-                part2.style.display = "block";
+                // If provider is selected, navigate to the next page (SignUpSecondPage.html)
+                if (!isClient) {
+                    window.location.href = "signUpSecondPage.html"; // Redirect to second page
+                } else {
+                    // If client is selected, directly go to the second page
+                    window.location.href = "signUpSecondPage.html";
+                }
             } else if (part2.style.display === "block") {
                 if (isClient) {
-                    // If client, "Sign Up" action here
+                    // If client, show "Sign Up" action here
                     alert("Client signed up!");
                     updateVisibility();
                 } else {
@@ -60,5 +65,3 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-
-
