@@ -1,41 +1,20 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
+    // Front Page (signUpFrontPage.html)
     const signUpForm = document.getElementById("signUpForm");
     const nextBtnFrontPage = document.getElementById("nextBtn");
-    const signUpBtnFrontPage = document.getElementById("signUpBtn");  // "Sign Up" button in part-2 for client
     const userTypeSwitch = document.getElementById("toggle-switch");
-
-    const part2 = document.querySelector(".sign-up-part-2");
-    const part3 = document.querySelector(".sign-up-part-3");
 
     let isClient = false;
 
     // Update visibility when toggling between client/provider
-    userTypeSwitch.addEventListener("change", function () {
+    userTypeSwitch.addEventListener("change", function() {
         isClient = userTypeSwitch.checked;
-        updateFormDisplay();
     });
 
-    // Function to update the form display based on user type
-    function updateFormDisplay() {
-        if (isClient) {
-            // Show part-2 only and replace Next button with Sign Up button
-            part2.style.display = "block";
-            part3.style.display = "none";
-            nextBtnFrontPage.style.display = "none"; // Hide the Next button
-            signUpBtnFrontPage.style.display = "block"; // Show the Sign Up button
-        } else {
-            // Show part-1 and part-2 for provider, and keep Next button
-            part2.style.display = "none";
-            part3.style.display = "none";
-            nextBtnFrontPage.style.display = "block"; // Show the Next button
-            signUpBtnFrontPage.style.display = "none"; // Hide the Sign Up button
-        }
-    }
-
     // Handle Next button click on Front Page (signUpFrontPage.html)
-    nextBtnFrontPage.addEventListener("click", function (event) {
+    nextBtnFrontPage.addEventListener("click", function(event) {
         event.preventDefault(); // Prevent form submission
-
+        
         // Store the user type (client/provider) in sessionStorage
         sessionStorage.setItem("userType", isClient ? "client" : "provider");
 
@@ -43,14 +22,38 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = "signUpSecondPage.html";
     });
 
-    // Handle Sign Up button for client
-    signUpBtnFrontPage.addEventListener("click", function (event) {
+    // Second Page (signUpSecondPage.html)
+    const nextBtnSecondPage = document.querySelector(".next-btn");
+    const prevBtnPart3 = document.querySelector(".prev-part3");
+    const part2 = document.querySelector(".sign-up-part-2");
+    const part3 = document.querySelector(".sign-up-part-3");
+
+    // Check if the user is a client or provider, using sessionStorage
+    const userType = sessionStorage.getItem("userType");
+
+    // Display sign-up-part-2, and hide sign-up-part-3 if the user is a client
+    if (userType === "client") {
+        part3.style.display = "none"; // Hide sign-up-part-3
+        nextBtnSecondPage.textContent = "Sign Up"; // Change button text to Sign Up
+    }
+
+    // Handle Next button click on Second Page (signUpSecondPage.html)
+    nextBtnSecondPage.addEventListener("click", function(event) {
         event.preventDefault(); // Prevent form submission
 
-        alert("Client signed up!");
-        window.location.href = "thankYouPage.html"; // Redirect to a Thank You page or appropriate page after sign-up
+        if (userType === "client") {
+            alert("Client signed up!");
+            window.location.href = "thankYouPage.html"; // Redirect to a Thank You page or appropriate page after sign-up
+        } else {
+            // If user is a provider, show part 3 and hide part 2
+            part2.style.display = "none";
+            part3.style.display = "block"; // Show sign-up-part-3 for providers
+        }
     });
 
-    // Initialize the form display based on the current state
-    updateFormDisplay();
+    // Previous button behavior for part-3
+    prevBtnPart3.addEventListener("click", () => {
+        part3.style.display = "none";
+        part2.style.display = "block";
+    });
 });
