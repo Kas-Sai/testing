@@ -1,3 +1,5 @@
+//js code for switching sign-up slides
+
 document.addEventListener("DOMContentLoaded", function () {
     const part1 = document.querySelector(".sign-up-part-1");
     const part2 = document.querySelector(".sign-up-part-2");
@@ -57,16 +59,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
-
-    // Function to handle the "Next" button in part-2
-    clientNextBtn.addEventListener("click", () => {
-        if (isClient) {
-            // Client sign-up logic (can be expanded as needed)
-            alert("Client signed up!");
-            updateVisibility();
-        } else {
-            part2.style.display = "none";
-            part3.style.display = "block";
-        }
-    });
 });
+
+
