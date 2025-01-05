@@ -1,112 +1,55 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const toggleSwitch = document.getElementById("toggle-switch");
-  const nextButtonPart1 = document.querySelector(".sign-up-part-1 .next");
-  const nextButtonPart2 = document.querySelector(".sign-up-part-2 .next-btn");
-  const signUpButton = document.querySelector(".sign-up-part-2 .register-btn");
-  const chosenTagsList = document.getElementById("chosen-tags-list");
+document.addEventListener("DOMContentLoaded", function () {
+    const part2 = document.querySelector(".sign-up-part-2");
+    const part3 = document.querySelector(".sign-up-part-3");
+    const nextBtns = document.querySelectorAll(".next");
+    const prevBtns = document.querySelectorAll(".prev");
+    const userTypeSwitch = document.getElementById("toggle-switch");
 
-  // Event listener for Part 1 'Next' button
-  nextButtonPart1.addEventListener("click", (event) => {
-    event.preventDefault();
-    const isProvider = toggleSwitch.checked;
+    let isClient = false;
 
-    if (isFormPart1Valid()) {
-      if (isProvider) {
-        showPart2Provider();
-      } else {
-        showPart2Client();
-      }
-    } else {
-      alert("Please complete all required fields in Part 1.");
+    // Function to update visibility based on user type
+    function updateVisibility() {
+        part2.style.display = "block";
+        part3.style.display = "none";
+        const clientNextBtn = part2.querySelector(".next-btn");
+        if (clientNextBtn) {
+            clientNextBtn.textContent = isClient ? "Sign Up" : "Next";
+        }
     }
-  });
 
-  // Event listener for Provider's Part 2 'Next' button
-  nextButtonPart2.addEventListener("click", (event) => {
-    event.preventDefault();
-    if (isFormPart2Valid()) {
-      showPart3();
-    } else {
-      alert("Please complete all required fields in Part 2.");
-    }
-  });
+    // Initial visibility setup
+    updateVisibility();
 
-  // Event listener for Client's Part 2 'Sign Up' button
-  signUpButton.addEventListener("click", (event) => {
-    event.preventDefault();
-    if (isFormPart2Valid()) {
-      alert("Client signed up successfully!");
-    } else {
-      alert("Please complete all required fields in Part 2.");
-    }
-  });
+    // Event listener for user type toggle
+    userTypeSwitch.addEventListener("change", () => {
+        isClient = userTypeSwitch.checked;
+        updateVisibility();
+    });
 
-  // Function to validate Part 1 form
-  function isFormPart1Valid() {
-    const inputs = document.querySelectorAll(".sign-up-part-1 input[required]");
-    return Array.from(inputs).every((input) => input.value.trim() !== "");
-  }
+    // Next button functionality
+    nextBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            if (part2.style.display === "block") {
+                if (isClient) {
+                    // Handle "Sign Up" action for Client
+                    alert("Client signed up!");
+                    updateVisibility();
+                } else {
+                    part2.style.display = "none";
+                    part3.style.display = "block";
+                }
+            }
+        });
+    });
 
-  // Function to validate Part 2 form
-  function isFormPart2Valid() {
-    const inputs = document.querySelectorAll(".sign-up-part-2 input");
-    const textarea = document.querySelector(".sign-up-part-2 textarea");
-    return (
-      Array.from(inputs).every((input) => input.value.trim() !== "") &&
-      textarea.value.trim() !== ""
-    );
-  }
-
-  // Function to validate tags for Provider's Part 3
-  function isTagsValid() {
-    return chosenTagsList.children.length > 0;
-  }
-
-  // Function to show Provider's Part 2
-  function showPart2Provider() {
-    document.querySelector(".sign-up-part-1").style.display = "none";
-    document.querySelector(".sign-up-part-2").style.display = "block";
-    nextButtonPart2.style.display = "block";
-    signUpButton.style.display = "none";
-  }
-
-  // Function to show Client's Part 2
-  function showPart2Client() {
-    document.querySelector(".sign-up-part-1").style.display = "none";
-    document.querySelector(".sign-up-part-2").style.display = "block";
-    nextButtonPart2.style.display = "none";
-    signUpButton.style.display = "block";
-  }
-
-  // Function to show Part 3 for Provider
-  function showPart3() {
-    if (isTagsValid()) {
-      document.querySelector(".sign-up-part-2").style.display = "none";
-      document.querySelector(".sign-up-part-3").style.display = "block";
-    } else {
-      alert("Please select at least one tag.");
-    }
-  }
+    // Previous button functionality
+    prevBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            if (part3.style.display === "block") {
+                part3.style.display = "none";
+                part2.style.display = "block";
+            }
+        });
+    });
 });
 
-// Function to add tags for Provider
-function addSkill() {
-  const skillInput = document.getElementById("skill");
-  const skill = skillInput.value.trim();
-  if (skill) {
-    const tag = document.createElement("div");
-    tag.className = "tag-item";
-    tag.textContent = skill;
-    document.getElementById("chosen-tags-list").appendChild(tag);
-    skillInput.value = "";
-  }
-}
-
-// Function to select available tags for Provider
-function selectTag(tagName) {
-  const chosenTagsList = document.getElementById("chosen-tags-list");
-  const tag = document.createElement("div");
-  tag.className = "tag-item";
-  tag.textContent = tagName;
-  chosenTagsList.appendChild(tag);
-}
