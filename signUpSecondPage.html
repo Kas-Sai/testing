@@ -48,8 +48,45 @@
                     </div>
                 </div>
         
-                <button class="next-btn next" onclick="showPart3()">Next</button>
+                <button class="next-btn next">Next</button>
             </div>
+    </div>
+   </section>
+   <section class="sign-up-part-3">
+    <div class="login-box">
+        <div class="logo">
+            <img  src="https://github.com/Kas-Sai/testing/blob/main/New%20folder/sitelog.png?raw=true" alt="Logo">
+        </div>
+            <h3>Sign Up</h3>
+            <div class="container-page3">
+                <div class="input-group-page3">
+                    <label for="skill">Skill</label>
+                    <input type="text" id="skill" class="field-input" placeholder="Enter a tag name here">
+                    <button class="add-skill-btn" onclick="addSkill()">Add</button>
+                </div>
+        
+                <div class="tag-section">
+                    <div class="chosen-tags">
+                        <p>Chosen Tags:</p>
+                        <div id="chosen-tags-list" class="tag-list"></div>
+                    </div>
+        
+                    <div class="separator"></div>
+                    <div class="option-tags">
+                        <p>Available Tags:</p>
+                        <div class="tag-list">
+                            <div class="tag-item" onclick="selectTag('advocate')">advocate</div>
+                            <div class="tag-item" onclick="selectTag('notary')">notary</div>
+                            <div class="tag-item" onclick="selectTag('lawyer')">lawyer</div>
+                            <div class="tag-item" onclick="selectTag('consultant')">consultant</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="register-btn">Sign Up</button>
+            </div>
+    </div>
+    <div class="prev prev-part3">
+        <i class="fa-solid fa-circle-left"></i>
     </div>
    </section>
 </div>
