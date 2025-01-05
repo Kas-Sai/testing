@@ -110,3 +110,21 @@ function selectTag(tagName) {
   tag.textContent = tagName;
   chosenTagsList.appendChild(tag);
 }
+
+// Event listener for Part 1 'Next' button
+nextButtonPart1.addEventListener("click", (event) => {
+  event.preventDefault();
+  const isProvider = toggleSwitch.checked;
+
+  if (isFormPart1Valid()) {
+    if (isProvider) {
+      // Redirect to the second page for Provider
+      window.location.href = "signUpSecondPage.html?userType=provider";
+    } else {
+      // Redirect to the second page for Client
+      window.location.href = "signUpSecondPage.html?userType=client";
+    }
+  } else {
+    alert("Please complete all required fields in Part 1.");
+  }
+});
